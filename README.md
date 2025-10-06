@@ -1,4 +1,4 @@
-# 🧠 Agentic Deploy  
+# Agentic Deploy  
 **Secure CI/CD Pipeline for LLM-Based Conversational AI Agents on AWS**
 
 Agentic Deploy is a secure, scalable AWS-based deployment pipeline for **LLM-powered conversational agents**.  
