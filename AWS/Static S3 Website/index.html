@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Weather Chat</title>
+</head>
+<body>
+<h1>Weather Chat Agent</h1>
+<input id="userInput" placeholder="Ask about weather..." />
+<button onclick="sendMessage()">Send</button>
+<div id="chatLog"></div>
+
+<script>
+async function sendMessage() {
+    const message = document.getElementById('userInput').value;
+    const responseDiv = document.getElementById('chatLog');
+
+    try {
+        const res = await fetch('http://Public-ALB-399437080.us-east-1.elb.amazonaws.com/chat', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ user_input: message })
+        });
+
+        const data = await res.json();
+        responseDiv.innerHTML += `<p><b>You:</b> ${message}</p>`;
+        responseDiv.innerHTML += `<p><b>Bot:</b> ${data.response}</p>`;
+    } catch (err) {
+        responseDiv.innerHTML += `<p style="color:red;">Error: ${err}</p>`;
+    }
+
+    document.getElementById('userInput').value = '';
+}
+</script>
+</body>
+</html>
