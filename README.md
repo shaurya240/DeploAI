@@ -29,7 +29,7 @@ The architecture focuses on:
 
 ---
 
-🧾 Notable Features
+## Notable Features
 
 ✅ Agentic CI/CD architecture for LLM-based workloads
 
@@ -44,17 +44,17 @@ The architecture focuses on:
 ## 🧑‍💻 How to Run Locally
 
 ```
-# 1. Clone the repository
+1. Clone the repository
 git clone https://github.com/shaurya240/DeployAI.git
 cd DeployAI
 
-# 2. Build Docker image
+2. Build Docker image
 docker build -t agentic-weather-agent .
 
-# 3. Run locally
+3. Run locally
 docker run -p 8000:8000 agentic-weather-agent
 
-# 4. Access the API
+4. Access the API
 curl http://localhost:8000/chat
 
 You can also visit http://localhost:8000/docs
