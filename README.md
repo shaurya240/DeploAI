@@ -27,6 +27,20 @@ The architecture focuses on:
 
 <img width="2051" height="1879" alt="CICD_Arch" src="https://github.com/user-attachments/assets/aa656e33-da7d-4939-813a-dfa0381570be" />
 
+---
+
+🧾 Notable Features
+
+✅ Agentic CI/CD architecture for LLM-based workloads
+
+🔐 Zero-trust deployment using private subnets and internal load balancers
+
+⚡ Automated deployment pipeline with GitHub and AWS CodePipeline
+
+🌐 HTTPS-secured CloudFront + S3 static frontend
+
+🧱 Modular architecture, easily extensible to other LLM agents
+
 ## 🧑‍💻 How to Run Locally
 
 ```
