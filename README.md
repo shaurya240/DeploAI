@@ -27,3 +27,21 @@ The architecture focuses on:
 
 <img width="2051" height="1879" alt="CICD_Arch" src="https://github.com/user-attachments/assets/aa656e33-da7d-4939-813a-dfa0381570be" />
 
+## 🧑‍💻 How to Run Locally
+
+```
+# 1. Clone the repository
+git clone https://github.com/shaurya240/DeployAI.git
+cd DeployAI
+
+# 2. Build Docker image
+docker build -t agentic-weather-agent .
+
+# 3. Run locally
+docker run -p 8000:8000 agentic-weather-agent
+
+# 4. Access the API
+curl http://localhost:8000/chat
+
+You can also visit http://localhost:8000/docs
+```
