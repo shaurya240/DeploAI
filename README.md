@@ -41,6 +41,7 @@ The architecture focuses on:
 
 🧱 Modular architecture, easily extensible to other LLM agents
 
+
 ## 🧑‍💻 How to Run Locally
 
 ```
