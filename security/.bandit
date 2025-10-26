@@ -1,0 +1,11 @@
+# Bandit Configuration
+# SAST for Python code
+
+[bandit]
+exclude_dirs = [
+    '/.git/',
+    '/__pycache__/',
+    '/venv/',
+    '/.venv/',
+]
+
