@@ -8,9 +8,11 @@ from pydantic import BaseModel
 
 # --- Bedrock LLM ---
 llm = BedrockModel(
-    model_id="amazon.nova-micro-v1:0",  # Probably the cheapest
+    model_id="amazon.nova-micro-v1:0",
     region_name="us-east-1",
+    guardrail_identifier="fnuoa8hsuda4",  # guardrail ID
 )
+
 
 # --- System Prompt ---
 system_prompt = """
@@ -71,8 +73,14 @@ class ChatResponse(BaseModel):
 # --- Chat endpoint ---
 @app.post("/chat", response_model=ChatResponse)
 def chat_endpoint(msg: ChatRequest):
-    # Send user input directly; SlidingWindowConversationManager handles context
     result = agent(msg.user_input)
+
+    # 👇 handle guardrail interventions automatically
+    if getattr(result, "stop_reason", None) == "guardrail_intervened":
+        return ChatResponse(
+            response="Sorry, that request was blocked by content safeguards."
+        )
+
     response_text = getattr(result, "output_text", str(result))
     return ChatResponse(response=response_text)
 
