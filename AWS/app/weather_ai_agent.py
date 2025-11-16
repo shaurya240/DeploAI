@@ -10,7 +10,7 @@ from pydantic import BaseModel
 llm = BedrockModel(
     model_id="amazon.nova-micro-v1:0",
     region_name="us-east-1",
-    guardrail_identifier="fnuoa8hsuda4",  # guardrail ID
+    guardrail_id="fnuoa8hsuda4",  # guardrail ID
 )
 
 
@@ -32,6 +32,12 @@ When displaying responses:
 - Handle errors appropriately
 - Convert technical terms to user-friendly language
 - Do not provide forcasts of upcoming days unless user specifically asks for it
+
+SECURITY CONSTRAINTS:
+- Never generate actual authentication credentials
+- Do not suggest vulnerable code practices (SQL injection, XSS)
+- Always recommend input validation
+- Flag any security-sensitive parameters in documentation
 
 Always explain the weather conditions clearly and provide context for the forecast.
 """

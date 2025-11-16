@@ -66,7 +66,12 @@ git clone https://github.com/shaurya240/DeployAI.git
 cd DeployAI
 
 # 2. Build Docker image
-docker build -t agentic-weather-agent -f AWS/Dockerfile AWS/
+docker build --platform linux/amd64 -t agentic-weather-agent .
+
+
+docker push 771992990997.dkr.ecr.us-east-1.amazonaws.com/agentic-ai-poc:latest                     
+docker tag agentic-weather-agent:latest \
+771992990997.dkr.ecr.us-east-1.amazonaws.com/agentic-ai-poc:latest
 
 # 3. Run locally
 docker run -p 8000:8000 agentic-weather-agent
