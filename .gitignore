@@ -10,7 +10,6 @@ ENV/
 # Security scan outputs (generated files)
 *.json
 *.html
-*.txt
 security-reports/
 
 # Keep security folder and its .md files
