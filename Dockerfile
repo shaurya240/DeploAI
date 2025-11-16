@@ -7,12 +7,12 @@ WORKDIR /app
 # Install system dependencies (curl useful for debugging)
 RUN apt-get update && apt-get install -y curl && rm -rf /var/lib/apt/lists/*
 
-# Install Python dependencies
-COPY app/requirements.txt .
-RUN pip install --no-cache-dir -r requirements.txt
+# Copy and install Python dependencies
+COPY ./app/requirements.txt /app/requirements.txt
+RUN pip install --no-cache-dir -r /app/requirements.txt
 
 # Copy application code
-COPY app/ .
+COPY ./app /app
 
 # Expose FastAPI port
 EXPOSE 8000
