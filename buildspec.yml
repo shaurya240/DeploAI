@@ -4,8 +4,11 @@ phases:
   pre_build:
     commands:
       - echo Logging in to Amazon ECR...
-      - aws ecr get-login-password --region $AWS_DEFAULT_REGION | docker login --username AWS --password-stdin $REPOSITORY_URI
-      - IMAGE_TAG=$(echo $CODEBUILD_RESOLVED_SOURCE_VERSION | head -c 7)
+      - aws --version
+      - aws ecr get-login-password --region $AWS_DEFAULT_REGION | docker login --username AWS --password-stdin 771992990997.dkr.ecr.us-east-1.amazonaws.com
+      - REPOSITORY_URI=771992990997.dkr.ecr.us-east-1.amazonaws.com/agentic-ai-poc
+      - COMMIT_HASH=$(echo $CODEBUILD_RESOLVED_SOURCE_VERSION | cut -c 1-7)
+      - IMAGE_TAG=${COMMIT_HASH:=latest}
   build:
     commands:
       - echo Build started on `date`
@@ -15,12 +18,10 @@ phases:
   post_build:
     commands:
       - echo Build completed on `date`
-      - echo Pushing Docker images...
+      - echo Pushing the Docker images...
       - docker push $REPOSITORY_URI:latest
       - docker push $REPOSITORY_URI:$IMAGE_TAG
-
-      - printf '[{"name":"app-container","imageUri":"%s"}]' $REPOSITORY_URI:$IMAGE_TAG > imagedefinitions.json
-
+      - echo Writing image definitions file...
+      - printf '[{"name":"agentic-ai-poc","imageUri":"%s"}]' $REPOSITORY_URI:$IMAGE_TAG > imagedefinitions.json
 artifacts:
-  files:
-    - imagedefinitions.json
+    files: imagedefinitions.json
