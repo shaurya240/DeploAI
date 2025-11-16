@@ -91,6 +91,21 @@ def chat_endpoint(msg: ChatRequest):
     return ChatResponse(response=response_text)
 
 
+# --- Chat endpoint ---
+@app.post("/AdvancedAIAgent", response_model=ChatResponse)
+def chat_endpoint(msg: ChatRequest):
+    result = agent(msg.user_input)
+
+    # 👇 handle guardrail interventions automatically
+    if getattr(result, "stop_reason", None) == "guardrail_intervened":
+        return ChatResponse(
+            response="Sorry, that request was blocked by content safeguards."
+        )
+
+    response_text = getattr(result, "output_text", str(result))
+    return ChatResponse(response=response_text)
+
+
 # --- Health check ---
 @app.get("/health")
 def health():
