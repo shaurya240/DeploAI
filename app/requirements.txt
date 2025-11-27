@@ -6,6 +6,6 @@
 
 fastapi
 uvicorn[standard]
-pydantic# Validates input automatically (user_input must be a string)
+pydantic
 strands-agents
 strands-agents-tools
