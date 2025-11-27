@@ -47,12 +47,17 @@ The architecture focuses on:
 Multi-layer security testing with Bandit, TruffleHog, Safety, and Trivy.
 
 ```bash
-# Run security scan
+# Install Git hooks (run once after cloning)
+./security/install-hooks.sh
+
+# Run security scan manually
 ./security/security-scan.sh
 
 # View security report
 cat security/SECURITY_REPORT.md
 ```
+
+**Note:** The Git hooks will automatically run security scans before every push to prevent vulnerable code from being pushed to the repository.
 
 See [`security/`](./security/) folder for all security documentation and tools.
 

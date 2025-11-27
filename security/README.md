@@ -22,6 +22,24 @@ Read the results:
 cat security/SECURITY_REPORT.md
 ```
 
+## Git Hooks (Automatic Security Scanning)
+
+To ensure security scans run automatically before every push, install the Git hooks:
+
+```bash
+./security/install-hooks.sh
+```
+
+This will install a pre-push hook that runs the security scanner before allowing code to be pushed to the repository.
+
+**Note:** After cloning the repository, each developer should run the installation script once to set up the hooks locally.
+
+To bypass the hook in exceptional cases (not recommended):
+
+```bash
+git push --no-verify
+```
+
 ## Security Tools Used
 
 1. **Bandit** - SAST (Static Application Security Testing)
