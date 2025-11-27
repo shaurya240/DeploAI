@@ -42,7 +42,6 @@ if [ $SCAN_EXIT -ne 0 ]; then
     echo ""
     echo "❌ Security scan failed!"
     echo "Please review and fix security issues before pushing."
-    echo "To skip this check (not recommended): git push --no-verify"
     exit 1
 fi
 
@@ -57,6 +56,5 @@ chmod +x .git/hooks/pre-push
 echo "✅ Pre-push hook installed successfully!"
 echo ""
 echo "ℹ️  The security scan will now run automatically before every push."
-echo "   To bypass the hook (not recommended): git push --no-verify"
 echo ""
 
