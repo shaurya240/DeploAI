@@ -60,12 +60,37 @@ fi
 echo "[4/4] Container Security (Trivy)..."
 if ! command -v trivy &> /dev/null; then
     echo "  ✗ Trivy not installed: brew install trivy"
-elif [ -f "AWS/Dockerfile" ]; then
-    DOCKER_ISSUES=$(trivy config AWS/Dockerfile --severity HIGH,CRITICAL --format json 2>/dev/null | python3 -c "import sys, json; print(sum(len(r.get('Misconfigurations', [])) for r in json.load(sys.stdin).get('Results', [])))" 2>/dev/null || echo "0")
+else
+    DOCKER_ISSUES=0
+    
+    # 4a. Scan Dockerfile for misconfigurations
+    if [ -f "Dockerfile" ]; then
+        echo "  ├─ Scanning Dockerfile misconfigurations..."
+        CONFIG_ISSUES=$(trivy config Dockerfile --severity HIGH,CRITICAL --format json 2>/dev/null | python3 -c "import sys, json; print(sum(len(r.get('Misconfigurations', [])) for r in json.load(sys.stdin).get('Results', [])))" 2>/dev/null || echo "0")
+        DOCKER_ISSUES=$((DOCKER_ISSUES + CONFIG_ISSUES))
+        if [ "$CONFIG_ISSUES" -gt 0 ]; then
+            echo "  │  ✗ Found $CONFIG_ISSUES misconfiguration(s)"
+        fi
+    fi
+    
+    # 4b. Scan base image for vulnerabilities
+    if [ -f "Dockerfile" ]; then
+        echo "  ├─ Scanning base image vulnerabilities..."
+        # Extract base image from Dockerfile
+        BASE_IMAGE=$(grep -E "^FROM " Dockerfile | head -1 | awk '{print $2}')
+        if [ -n "$BASE_IMAGE" ]; then
+            IMAGE_VULNS=$(trivy image --severity HIGH,CRITICAL --format json "$BASE_IMAGE" 2>/dev/null | python3 -c "import sys, json; d=json.load(sys.stdin); print(sum(len(r.get('Vulnerabilities', [])) for r in d.get('Results', [])))" 2>/dev/null || echo "0")
+            DOCKER_ISSUES=$((DOCKER_ISSUES + IMAGE_VULNS))
+            if [ "$IMAGE_VULNS" -gt 0 ]; then
+                echo "  │  ✗ Found $IMAGE_VULNS vulnerability(ies) in $BASE_IMAGE"
+            fi
+        fi
+    fi
+    
     if [ "$DOCKER_ISSUES" -eq 0 ]; then
-        echo "  ✓ Dockerfile secure"
+        echo "  ✓ Dockerfile and base image secure"
     else
-        echo "  ✗ Found $DOCKER_ISSUES Dockerfile issues"
+        echo "  └─ Total: $DOCKER_ISSUES Docker issues"
         ISSUES=$((ISSUES + DOCKER_ISSUES))
     fi
 fi
