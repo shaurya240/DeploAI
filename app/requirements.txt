@@ -1,5 +1,11 @@
-fastapi==0.117.1
-uvicorn[standard]==0.37.0
-pydantic==2.11.9 # Validates input automatically (user_input must be a string)
-strands-agents==1.9.1
-strands-agents-tools==0.2.8
+#fastapi==0.117.1
+#uvicorn[standard]==0.37.0
+#pydantic==2.11.9 # Validates input automatically (user_input must be a string)
+#strands-agents==1.9.1
+#strands-agents-tools==0.2.8
+
+fastapi
+uvicorn[standard]
+pydantic# Validates input automatically (user_input must be a string)
+strands-agents
+strands-agents-tools
