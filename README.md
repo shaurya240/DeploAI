@@ -21,7 +21,10 @@ The architecture focuses on:
 
 ## 🏗️ Architecture Overview
 
-<img width="3244" height="2400" alt="CSE 543" src="https://github.com/user-attachments/assets/d172c162-807f-476a-9c2c-dc91321d3d8b" />
+<img width="3377" height="2237" alt="CICD-Arch-PPT" src="https://github.com/user-attachments/assets/2bb5976a-9e7f-4578-b72e-7f252895674c" />
+
+<img width="3866" height="2363" alt="Application-Arch-PPT" src="https://github.com/user-attachments/assets/a1221ead-e219-4b0c-ac1a-e3ea1aa20ebb" />
+
 
 ### 🔒 Secure Deployment Pipeline
 
